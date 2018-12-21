@@ -4,6 +4,10 @@ var dbconfig = require('./config.json');
 var Table = require('cli-table3');
 
 var idcheck = []
+var activeId;
+var activeAmt;
+var activePrice;
+var activeName;
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -32,7 +36,7 @@ var createtable = function(res) {
     });
     for (var i = 0; i < res.length; i++) {
         idcheck.push(res[i].item_id)
-        table.push([res[i].item_id,res[i].product_name,res[i].department_name,res[i].price,res[i].stock_quantity])
+        table.push([res[i].item_id,res[i].product_name,res[i].department_name,res[i].price.toFixed(2),res[i].stock_quantity])
     }
     console.log(table.toString());
 }
@@ -48,7 +52,7 @@ inquirer
   ])
   .then(function(response) {
     if(idcheck.includes(parseInt(response.item_id))) {
-        getquantity()
+        setItem(response.item_id)
     } else {
         console.log("Invalid item_id. Please input a different item_id.")
         start()
@@ -65,7 +69,77 @@ var listItems = function() {
     });
   }
 
+var setItem = function(id) {
+  connection.query("SELECT * FROM products WHERE item_id=?",id, function(err, res) {
+    if (err) throw err;
+    activeId = res[0].item_id
+    activeAmt = res[0].stock_quantity
+    activePrice = res[0].price
+    activeName = res[0].product_name
+    askAmt()
+});
+}
 
+var askAmt = function() {
+inquirer
+  .prompt([
+    {
+    type: "input",
+    message: "How many would you like to purchase?",
+    name: "quantity",
+    }
+  ])
+  .then(function(response) {
+    if(parseInt(response.quantity) > activeAmt) {
+      console.log("Insufficient quantity! The maximum you can order is " + activeAmt + ". Please enter a lower amount.")
+      askAmt()
+    } else {
+      var purchase_total = activePrice * response.quantity
+      var new_stock = activeAmt - response.quantity
+      if(response.quantity == 1) {
+        console.log("You have purchased 1 " + activeName + " for a total of $" + activePrice)
+        updateStock(new_stock, activeId)
+      } else {
+        console.log("You have purchased " + response.quantity + " units of " + activeName + " for a total of $" + purchase_total.toFixed(2))
+        updateStock(new_stock, activeId)
+      }
+    }
+  });
+}
+
+function updateStock(x,y) {
+  connection.query(
+    "UPDATE products SET ? WHERE ?",
+    [
+      {
+        stock_quantity: x
+      },
+      {
+        item_id: y
+      }
+    ],
+  )
+  askaddon()
+  }
+
+function askaddon() {
+  inquirer
+    .prompt([
+      {
+      type: "confirm",
+      message: "Would you like to make another purchase?",
+      name: "addon",
+      }
+    ])
+    .then(function(response) {
+      if(response.addon) {
+          start()
+      } else {
+          console.log("Please come again!")
+          connection.end()
+      }
+    });
+  }
 // var post = function() {
 // inquirer
 //   .prompt([
