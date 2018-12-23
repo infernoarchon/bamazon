@@ -18,7 +18,7 @@ To run this application yourself:
 ```
 3. Create the database by running `bamazon.sql` in MySQL Workbench.
 4. In your console, navigate to your bamazon folder and enter `npm install` to install the required npm packages.
-5. That's it! To run the app, enter `node bamazonCustomer.js`. Have fun!
+5. That's it! To run the app, enter `node bamazonCustomer`
 
 ## Tools used
 - MySQL
