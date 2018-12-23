@@ -7,7 +7,7 @@ This is a CLI store where users can purchase items and the store can check wheth
 ## Setup
 
 To run this application yourself: 
-1. You need to have a local database running using a program like MySQL Workbench.
+1. You need to have a local database running using a program like [MySQL Workbench](https://www.mysql.com/products/workbench/).
 2. Create a file called `config.json` and add your database credentials:
 
 ```
@@ -16,6 +16,7 @@ To run this application yourself:
     "password":"your_password"
 }
 ```
+3. Create the database by running bamazon.sql in MySQL Workbench.
 
 ## Tools used
 - MySQL
