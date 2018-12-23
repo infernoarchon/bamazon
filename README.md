@@ -4,6 +4,18 @@
 
 This is a CLI store where users can purchase items and the store can check whether there is sufficient inventory.
 
+## Setup
+
+To run this application yourself: 
+1. You need to have a local database running using a program like MySQL Workbench.
+2. Modify `config.json` with your database credentials:
+
+{
+    "username":"root",
+    "password":"Swamptreegoat5!"
+}
+
+
 ## Tools used
 - MySQL
 - Node.js
