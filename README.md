@@ -12,8 +12,8 @@ To run this application yourself:
 
 ```
 {
-    "username":"root",
-    "password":"Swamptreegoat5!"
+    "username":"your_username",
+    "password":"your_password"
 }
 ```
 
