@@ -1,6 +1,6 @@
 # bamazon
 
-![Image of bamazon](https://www.alanchen.com/wp-content/uploads/2018/12/bamazonthumb.png)
+![Image of bamazon](https://www.alanchen.com/wp-content/uploads/2018/12/bamazonthumb2.png)
 
 This is a CLI store where users can purchase items and the store can check whether there is sufficient inventory.
 
