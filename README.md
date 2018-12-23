@@ -10,10 +10,10 @@ To run this application yourself:
 1. You need to have a local database running using a program like MySQL Workbench.
 2. Modify `config.json` with your database credentials:
 
-{
-    "username":"root",
-    "password":"Swamptreegoat5!"
-}
+    {
+        "username":"root",
+        "password":"Swamptreegoat5!"
+    }
 
 
 ## Tools used
